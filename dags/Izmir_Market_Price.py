@@ -8,12 +8,15 @@ from airflow.providers.postgres.operators.postgres import PostgresOperator
 from airflow.models import Variable
 from airflow.providers.http.operators.http import SimpleHttpOperator
 import logging
-
+from azure.storage.blob import BlobServiceClient, ContentSettings
 
 end_point = Variable.get('end_point', default_var=None)
 postgres_connection = Variable.get('postgres_conn', default_var=None)
 discord_connection = Variable.get('discord_conn', default_var=None)
 
+AZURE_CONNECTION_STRING = Variable.get("azure_conn", default_var=None)
+BLOB_CONTAINER_NAME = "cihan"
+local_dir = "dags/outputs"
 
 
 def on_failure_callback(context):
@@ -99,6 +102,13 @@ with DAG(
         provide_context=True,
     )
 
+    upload_csv_to_blob_task = PythonOperator(
+        task_id='upload_csv_to_blob',
+        python_callable=upload_to_azure_blob,
+        op_kwargs={'local_dir': local_dir, 'blob_name': 'Izmir_Market_Price'},
+        dag=dag,
+    )
+
     upload_postgres_task = PythonOperator(
         task_id='upload_postgres_task',
         python_callable=upload_postgres,
@@ -110,4 +120,4 @@ with DAG(
     )
 
     start_task >> generate_url_task >> fetch_data_task >> json_to_dataframe_task >> dataframe_to_csv_task
-    dataframe_to_csv_task >> upload_postgres_task
+    dataframe_to_csv_task >> upload_csv_to_blob_task >> upload_postgres_task

@@ -103,3 +103,11 @@ def upload_postgres(csv_file_path, **kwargs):
     df = pd.read_csv(csv_file_path)
     df.to_sql(name='Izmir_Market_Price', schema="stg" ,con=engine, if_exists='append', index=False)
 
+def upload_to_azure_blob(local_dir, blob_name):
+    blob_service_client = BlobServiceClient.from_connection_string(AZURE_CONNECTION_STRING)
+    container_client = blob_service_client.get_container_client(BLOB_CONTAINER_NAME)
+
+    for filename in os.listdir(local_dir):
+        blob_client = container_client.get_blob_client(blob_name + '/' + filename)
+        with open(os.path.join(local_dir, filename), "rb") as data:
+            blob_client.upload_blob(data, overwrite=True, content_settings=ContentSettings(content_type='text/csv'))
