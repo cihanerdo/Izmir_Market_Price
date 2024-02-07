@@ -7,36 +7,48 @@ from functions.helper_function import *
 from airflow.providers.postgres.operators.postgres import PostgresOperator
 from airflow.models import Variable
 from airflow.providers.http.operators.http import SimpleHttpOperator
+import logging
+
 
 end_point = Variable.get('end_point', default_var=None)
 postgres_connection = Variable.get('postgres_conn', default_var=None)
 discord_connection = Variable.get('discord_conn', default_var=None)
 
+
+
 def on_failure_callback(context):
+    error_message = f"Airflow pipeline has encountered an issue at {datetime.now()}!"
+    logging.error(error_message)
+    
+    # Add the Discord notification
     discord_webhook_task = SimpleHttpOperator(
         task_id='discord_notification_failure',
         http_conn_id='discord_webhook',
         endpoint=end_point,
         method='POST',
-        data='{"content": "Airflow pipeline has encountered an issue!"}',
+        data='{"content": "' + error_message + '"}',
         headers={"Content-Type": "application/json"},
     )
     discord_webhook_task.execute(context=context)
 
 def on_success_callback(context):
+    success_message = f"Airflow pipeline has completed successfully at {datetime.now()}!"
+    logging.info(success_message)
+    
+    # Add the Discord notification
     discord_webhook_task = SimpleHttpOperator(
         task_id='discord_notification_success',
         http_conn_id='discord_webhook',
         endpoint=end_point,
         method='POST',
-        data='{"content": "Airflow pipeline has completed successfully!"}',
+        data='{"content": "' + success_message + '"}',
         headers={"Content-Type": "application/json"},
     )
     discord_webhook_task.execute(context=context)
 
 
 default_args = {
-    'retries': 24,
+    'retries': 0,
     'retry_delay': timedelta(minutes=60)
 }
 
