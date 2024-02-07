@@ -9,6 +9,7 @@ from airflow.models import Variable
 from airflow.providers.http.operators.http import SimpleHttpOperator
 import logging
 from azure.storage.blob import BlobServiceClient, ContentSettings
+import os
 
 end_point = Variable.get('end_point', default_var=None)
 postgres_connection = Variable.get('postgres_conn', default_var=None)
@@ -49,6 +50,21 @@ def on_success_callback(context):
     )
     discord_webhook_task.execute(context=context)
 
+def upload_to_azure_blob(local_dir, blob_name):
+    blob_service_client = BlobServiceClient.from_connection_string(AZURE_CONNECTION_STRING)
+    container_client = blob_service_client.get_container_client(BLOB_CONTAINER_NAME)
+
+    for filename in os.listdir(local_dir):
+        if filename.endswith('.csv'):
+            blob_path = blob_name + '/' + filename
+            blob_client = container_client.get_blob_client(blob_path)
+
+            try:
+                with open(os.path.join(local_dir, filename), "rb") as data:
+                    blob_client.upload_blob(data, overwrite=True, content_settings=ContentSettings(content_type='text/csv'))
+                print(f"Uploaded {filename} to Azure Blob Storage: {blob_path}")
+            except Exception as e:
+                print(f"Failed to upload {filename} to Azure Blob Storage. Error: {str(e)}")
 
 default_args = {
     'retries': 0,
