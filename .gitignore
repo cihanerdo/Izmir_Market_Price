@@ -1,0 +1,11 @@
+.env
+outputs
+.ipynb_checkpoints
+.idea
+__pycache__
+airflow.sh
+dags/outputs
+dags/.env
+dags/__pycache__
+logs
+plugins
