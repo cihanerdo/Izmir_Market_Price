@@ -15,6 +15,7 @@ end_point = Variable.get('end_point', default_var=None)
 postgres_connection = Variable.get('postgres_conn', default_var=None)
 discord_connection = Variable.get('discord_conn', default_var=None)
 
+
 AZURE_CONNECTION_STRING = Variable.get("azure_conn", default_var=None)
 BLOB_CONTAINER_NAME = "cihan"
 local_dir = "dags/outputs"
@@ -24,7 +25,6 @@ def on_failure_callback(context):
     error_message = f"Airflow pipeline has encountered an issue at {datetime.now()}!"
     logging.error(error_message)
     
-    # Add the Discord notification
     discord_webhook_task = SimpleHttpOperator(
         task_id='discord_notification_failure',
         http_conn_id='discord_webhook',
@@ -39,7 +39,6 @@ def on_success_callback(context):
     success_message = f"Airflow pipeline has completed successfully at {datetime.now()}!"
     logging.info(success_message)
     
-    # Add the Discord notification
     discord_webhook_task = SimpleHttpOperator(
         task_id='discord_notification_success',
         http_conn_id='discord_webhook',
@@ -67,7 +66,7 @@ def upload_to_azure_blob(local_dir, blob_name):
                 print(f"Failed to upload {filename} to Azure Blob Storage. Error: {str(e)}")
 
 default_args = {
-    'retries': 0,
+    'retries': 24,
     'retry_delay': timedelta(minutes=60)
 }
 
@@ -92,7 +91,7 @@ with DAG(
         python_callable=generate_url,
         dag=dag,
         op_kwargs={
-            'date':datetime.today().date()
+            'date':'{{ ds }}'
         },
         provide_context=True
     )
@@ -109,6 +108,9 @@ with DAG(
         python_callable=json_to_dataframe,
         dag=dag,
         provide_context=True,
+        op_kwargs={
+            "date": "{{ ds }}"
+        }
     )
 
     dataframe_to_csv_task = PythonOperator(
@@ -116,6 +118,9 @@ with DAG(
         python_callable=dataframe_to_csv,
         dag=dag,
         provide_context=True,
+        op_kwargs={
+            "csv_path": 'dags/outputs/Izmir_Market_Price_{{ ds }}.csv'
+        }
     )
 
     upload_csv_to_blob_task = PythonOperator(
@@ -126,13 +131,13 @@ with DAG(
     )
 
     upload_postgres_task = PythonOperator(
-        task_id='upload_postgres_task',
-        python_callable=upload_postgres,
-        dag=dag,
-        provide_context=True,
-        op_kwargs={
-            'csv_file_path':f'dags/outputs/Izmir_Market_Price_{datetime.today().date()}'
-        }
+    task_id='upload_postgres_task',
+    python_callable=upload_postgres,
+    dag=dag,
+    provide_context=True,
+    op_kwargs={
+        'csv_file_path': 'dags/outputs/Izmir_Market_Price_{{ ds }}.csv'
+    }
     )
 
     start_task >> generate_url_task >> fetch_data_task >> json_to_dataframe_task >> dataframe_to_csv_task

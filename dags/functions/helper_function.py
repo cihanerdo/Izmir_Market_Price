@@ -8,8 +8,6 @@ from airflow.exceptions import AirflowFailException
 
 def generate_url(date, **kwargs):
 
-    date = datetime.today().date()
-    yesterday = date - timedelta(days=1)
     url = f"https://openapi.izmir.bel.tr/api/ibb/halfiyatlari/sebzemeyve/{date}"
     logger.info(f"Url successfully generated. URL:{url}")
     return url
@@ -27,7 +25,7 @@ def fetch_data(**kwargs):
 
     return result
 
-def json_to_dataframe(**kwargs):
+def json_to_dataframe(date, **kwargs):
     ti = kwargs['ti']
     result = ti.xcom_pull(task_ids='fetch_data_task')
 
@@ -79,7 +77,7 @@ def json_to_dataframe(**kwargs):
     Izmir_Market_Dict = {"Avarage_Price": Avarage_Price, "Product_Name": Product_Name, 
                         "Unit": Unit, "Min_Price": Min_Price, "Max_Price": Max_Price,
                         "Product_ID": Product_ID, "Product_Type_ID": Product_Type_ID, 
-                        "Prodcut_Type_Name": Prodcut_Type_Name, "Date": datetime.today().date()}
+                        "Prodcut_Type_Name": Prodcut_Type_Name, "Date": date}
 
     df = pd.DataFrame(Izmir_Market_Dict)
 
@@ -87,11 +85,11 @@ def json_to_dataframe(**kwargs):
 
     return df
 
-def dataframe_to_csv(**kwargs):
+def dataframe_to_csv(csv_path, **kwargs):
     ti = kwargs['ti']
     DataFrame = ti.xcom_pull(task_ids='json_to_dataframe_task')
 
-    DataFrame.to_csv(f"dags/outputs/Izmir_Market_Price_{datetime.today().date()}", index=False)
+    DataFrame.to_csv(csv_path, index=False)
     logger.info("csv file created successfully.")
     
 def upload_postgres(csv_file_path, **kwargs):
