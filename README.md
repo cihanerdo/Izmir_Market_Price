@@ -1,14 +1,12 @@
 # IZMIR MARKET PRICE
 
-![Untitled](README/IZMIR%20MARKET%20PRICE%2096073c7e82a34f9eb3d3bd347e0d1c53/Untitled.gif)
+![Untitled](README/Untitled.gif)
 
 ## Repository Cloning
 
-<<<<<<< HEAD
+
 To clone the repository, use the following command:
-=======
-To colne the repository, use the following command:
->>>>>>> 439f509 (README Added)
+
 
 `git clone https://github.com/cihanerdo/Izmir_Market_Price.git`
 
@@ -36,14 +34,14 @@ uses the fetch_data_upload_postgre() function.
 `python [main.py](http://main.py/) -s 2023-01-01 -e 2023-02-01`
 is used in the form.
 
-![Untitled](README/IZMIR%20MARKET%20PRICE%2096073c7e82a34f9eb3d3bd347e0d1c53/Untitled.png)
+![Untitled](README/Untitled.png)
 
 The other mode is used for daily data extraction.
 It uses the fetch_data_upload_postgre_today() function.
 `python [main.py](http://main.py/)`
 is used in the form.
 
-![Untitled](README/IZMIR%20MARKET%20PRICE%2096073c7e82a34f9eb3d3bd347e0d1c53/Untitled%201.png)
+![Untitled](README/Untitled%201.png)
 
 ## Airflow Setup
 
@@ -55,28 +53,23 @@ Follow the steps below for Airflow installation:
 
 `docker compose up —build -d`
 
-<<<<<<< HEAD
-Access the Airflow UI at [http://localhost:8080](http://localhost:8080/) after the installation is 
-=======
 Access the Airflow UI at [http://localhost:8080](http://localhost:8080/) after the installation is complete.
->>>>>>> 439f509 (README Added)
 
-![Untitled](README/IZMIR%20MARKET%20PRICE%2096073c7e82a34f9eb3d3bd347e0d1c53/Untitled%202.png)
+
+![Untitled](README/Untitled%202.png)
 
 ## **Project Example**
 
 `python main.py -s 2024-01-01 -e 2024-01-05`
 
-![Untitled](README/IZMIR%20MARKET%20PRICE%2096073c7e82a34f9eb3d3bd347e0d1c53/Untitled%203.png)
+![Untitled](README/Untitled%203.png)
 
 `python main.py`
 
-![Untitled](README/IZMIR%20MARKET%20PRICE%2096073c7e82a34f9eb3d3bd347e0d1c53/Untitled%204.png)
+![Untitled](README/Untitled%204.png)
 
 ## Database Example
 
-<<<<<<< HEAD
-![Untitled](README/IZMIR%20MARKET%20PRICE%2096073c7e82a34f9eb3d3bd347e0d1c53/Untitled%205.png)
-=======
-![Untitled](README/IZMIR%20MARKET%20PRICE%2096073c7e82a34f9eb3d3bd347e0d1c53/Untitled%205.png)
->>>>>>> 439f509 (README Added)
+
+![Untitled](README/Untitled%205.png)
+
