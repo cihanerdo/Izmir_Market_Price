@@ -74,11 +74,11 @@ def fetch_data(base_url, start_date, end_date):
                                  "Prodcut_Type_Name": Prodcut_Type_Name, "Date": current_date}
 
             df = pd.DataFrame(Izmir_Market_Dict)
-            logger.debug(f"{current_date} Veri Başarıyla Çekildi")
+            logger.debug(f"{current_date} Data Successfully Extracted.")
             result_data.append(df)
         else:
             if response.status_code == 204:
-                logger.info(f"{current_date} Tarihinde İçerik Bulunamadı.")
+                logger.info(f"{current_date} No Data Found on the Date.")
             else:
                 logger.error(f"Error fetching data for {current_date}. Status code: {response.status_code}")
 
@@ -95,11 +95,11 @@ def fetch_data_today(base_url, today):
         result_json = response.json()["HalFiyatListesi"]
         df = pd.json_normalize(result_json)
         df["Date"] = current_date
-        logger.debug(f"{current_date}: Veri Başarıyla Çekildi")
+        logger.debug(f"{current_date}: Data Successfully Extracted.")
         result_data.append(df)
     else:
         if response.status_code == 204:
-            logger.info(f"{current_date} Tarihinde İçerik Bulunmadı.")
+            logger.info(f"{current_date} No Data Found on the Date.")
         else:
             logger.error(f"Error fetching data for {current_date}. Status code: {response.status_code}")
 
