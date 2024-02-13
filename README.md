@@ -1,6 +1,6 @@
 # IZMIR MARKET PRICE
 
-![Untitled](IZMIR%20MARKET%20PRICE%2096073c7e82a34f9eb3d3bd347e0d1c53/Untitled.gif)
+![Untitled](README/IZMIR%20MARKET%20PRICE%2096073c7e82a34f9eb3d3bd347e0d1c53/Untitled.gif)
 
 ## Repository Cloning
 
@@ -36,14 +36,14 @@ uses the fetch_data_upload_postgre() function.
 `python [main.py](http://main.py/) -s 2023-01-01 -e 2023-02-01`
 is used in the form.
 
-![Untitled](IZMIR%20MARKET%20PRICE%2096073c7e82a34f9eb3d3bd347e0d1c53/Untitled.png)
+![Untitled](README/IZMIR%20MARKET%20PRICE%2096073c7e82a34f9eb3d3bd347e0d1c53/Untitled.png)
 
 The other mode is used for daily data extraction.
 It uses the fetch_data_upload_postgre_today() function.
 `python [main.py](http://main.py/)`
 is used in the form.
 
-![Untitled](IZMIR%20MARKET%20PRICE%2096073c7e82a34f9eb3d3bd347e0d1c53/Untitled%201.png)
+![Untitled](README/IZMIR%20MARKET%20PRICE%2096073c7e82a34f9eb3d3bd347e0d1c53/Untitled%201.png)
 
 ## Airflow Setup
 
@@ -61,22 +61,22 @@ Access the Airflow UI at [http://localhost:8080](http://localhost:8080/) after
 Access the Airflow UI at [http://localhost:8080](http://localhost:8080/) after the installation is complete.
 >>>>>>> 439f509 (README Added)
 
-![Untitled](IZMIR%20MARKET%20PRICE%2096073c7e82a34f9eb3d3bd347e0d1c53/Untitled%202.png)
+![Untitled](README/IZMIR%20MARKET%20PRICE%2096073c7e82a34f9eb3d3bd347e0d1c53/Untitled%202.png)
 
 ## **Project Example**
 
 `python main.py -s 2024-01-01 -e 2024-01-05`
 
-![Untitled](IZMIR%20MARKET%20PRICE%2096073c7e82a34f9eb3d3bd347e0d1c53/Untitled%203.png)
+![Untitled](README/IZMIR%20MARKET%20PRICE%2096073c7e82a34f9eb3d3bd347e0d1c53/Untitled%203.png)
 
 `python main.py`
 
-![Untitled](IZMIR%20MARKET%20PRICE%2096073c7e82a34f9eb3d3bd347e0d1c53/Untitled%204.png)
+![Untitled](README/IZMIR%20MARKET%20PRICE%2096073c7e82a34f9eb3d3bd347e0d1c53/Untitled%204.png)
 
 ## Database Example
 
 <<<<<<< HEAD
-![Untitled](IZMIR%20MARKET%20PRICE%2096073c7e82a34f9eb3d3bd347e0d1c53/Untitled%205.png)
+![Untitled](README/IZMIR%20MARKET%20PRICE%2096073c7e82a34f9eb3d3bd347e0d1c53/Untitled%205.png)
 =======
-![Untitled](IZMIR%20MARKET%20PRICE%2096073c7e82a34f9eb3d3bd347e0d1c53/Untitled%205.png)
+![Untitled](README/IZMIR%20MARKET%20PRICE%2096073c7e82a34f9eb3d3bd347e0d1c53/Untitled%205.png)
 >>>>>>> 439f509 (README Added)
