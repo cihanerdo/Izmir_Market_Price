@@ -4,7 +4,7 @@
 
 ## Repository Cloning
 
-To colne the repository, use the following command:
+To clone the repository, use the following command:
 
 `git clone https://github.com/cihanerdo/Izmir_Market_Price.git`
 
