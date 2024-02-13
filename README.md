@@ -29,16 +29,21 @@ Install the required dependencies using the following command:
 ## How to Use
 
 There are 2 different usage modes.
+
 Mode used by giving date range:
+
 uses the fetch_data_upload_postgre() function.
-`python [main.py](http://main.py/) -s 2023-01-01 -e 2023-02-01`
+`python main.py -s 2023-01-01 -e 2023-02-01`
+
 is used in the form.
 
 ![Untitled](README/Untitled.png)
 
 The other mode is used for daily data extraction.
+
 It uses the fetch_data_upload_postgre_today() function.
-`python [main.py](http://main.py/)`
+`python main.py`
+
 is used in the form.
 
 ![Untitled](README/Untitled%201.png)
