@@ -12,6 +12,8 @@ To clone the repository, use the following command:
 
 ## Database Connection
 
+Enter the necessary database information in the .env file:
+
 `DB_USERNAME=”your_username”`
 
 `DB_PASSWORD=your_password`
