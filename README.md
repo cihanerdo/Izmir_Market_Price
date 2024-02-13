@@ -4,7 +4,11 @@
 
 ## Repository Cloning
 
+<<<<<<< HEAD
 To clone the repository, use the following command:
+=======
+To colne the repository, use the following command:
+>>>>>>> 439f509 (README Added)
 
 `git clone https://github.com/cihanerdo/Izmir_Market_Price.git`
 
@@ -51,7 +55,11 @@ Follow the steps below for Airflow installation:
 
 `docker compose up —build -d`
 
+<<<<<<< HEAD
 Access the Airflow UI at [http://localhost:8080](http://localhost:8080/) after the installation is 
+=======
+Access the Airflow UI at [http://localhost:8080](http://localhost:8080/) after the installation is complete.
+>>>>>>> 439f509 (README Added)
 
 ![Untitled](IZMIR%20MARKET%20PRICE%2096073c7e82a34f9eb3d3bd347e0d1c53/Untitled%202.png)
 
@@ -67,4 +75,8 @@ Access the Airflow UI at [http://localhost:8080](http://localhost:8080/) after
 
 ## Database Example
 
+<<<<<<< HEAD
 ![Untitled](IZMIR%20MARKET%20PRICE%2096073c7e82a34f9eb3d3bd347e0d1c53/Untitled%205.png)
+=======
+![Untitled](IZMIR%20MARKET%20PRICE%2096073c7e82a34f9eb3d3bd347e0d1c53/Untitled%205.png)
+>>>>>>> 439f509 (README Added)
